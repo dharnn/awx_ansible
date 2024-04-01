@@ -1,0 +1,17 @@
+---
+- name: Configure RIPv2 on routers
+  hosts: routers
+  gather_facts: no
+  connection: network_cli
+  tasks:
+    - name: Configure RIPv2
+      ios_config:
+        lines:
+          - "router rip"
+          - "version 2"
+          - "network 192.168.10.0"
+      register: config_result
+
+    - name: Display configuration result
+      debug:
+        var: config_result
